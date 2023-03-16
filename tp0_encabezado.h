@@ -14,7 +14,7 @@ enum Referencia
     EXTERNO
 };
 
-//enum Referencia dondeEstaElPunto(int xc, int yc, int rc, int xp, int yp);
+enum Referencia dondeEstaElPunto(int xc, int yc, int rc, int xp, int yp);
 
 // Ejercicio 2
 
@@ -26,22 +26,12 @@ struct Punto {
     int x, y;
 };
 
-
-
 enum Referencia dondeEstaElPuntoBis(struct Punto centroC, int rc, struct Punto p);
 
-int main(){
 
 
-struct Punto p;
-struct Punto b;
-int integer;
-int resultado;
-
-resultado=dondeEstaElPuntoBis(p,integer,b);
 
 
-}
 
 
 
