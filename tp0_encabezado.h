@@ -28,6 +28,24 @@ struct Punto {
 
 enum Referencia dondeEstaElPuntoBis(struct Punto centroC, int rc, struct Punto p);
 
+// Ejercicio 5
+
+#define CANT_PISOS 8
+#define CANT_DEPARTAMENTOS 5
+
+typedef struct ViviendaRep {
+    short piso;
+    char depto;
+} Vivienda;
+
+
+int pisoConMasHabitantes(int edificio[CANT_PISOS][CANT_DEPARTAMENTOS]);
+int cantidadDeViviendasVacias(int edificio[CANT_PISOS][CANT_DEPARTAMENTOS]);
+float promedioHabitantesPorVivienda(int edificio[CANT_PISOS][CANT_DEPARTAMENTOS]);
+Vivienda viviendaConMasHabitantes(int edificio[CANT_PISOS][CANT_DEPARTAMENTOS]);
+
+// Viviendas viviendasVacias(int edificio[CANT_PISOS][CANT_DEPARTAMENTOS]);
+
 
 
 
