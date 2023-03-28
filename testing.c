@@ -51,6 +51,42 @@ int leer_archivo(){
 
 }
 
+//Función que DEVUELVE un PUNTERO
+
+int *funcion_devuelvePuntero_entero(){
+    int *puntero=malloc(sizeof(int));
+    *puntero=296;
+    return puntero;
+}
+
+struct registroNuevo{
+    int punto1,punto2;
+};
+
+//Función con parametros por VALOR
+
+int funcion(int x,int y,int z); //Declaración
+int funcion(int x,int y,int z){
+    
+    x=x+2;
+    y=x+2;
+    z=y+2;
+     
+    return x;
+     
+}
+
+//Función con parametros por REFERENCIA
+
+int funcionReferencia(int *x,int *y,int *z); //Declaración
+int funcionReferencia(int *x,int *y,int *z){
+    
+    *x=*x+2;
+    *y=*y+2;
+    *z=*z+2;
+
+
+} 
 
 
 
@@ -183,7 +219,7 @@ puntero=&variable; // El puntero "apunta" a la variable
 printf("%d\n",variable); // Imprime el contenido de la variable
 printf("%d\n",puntero); // Imprime la dirección de memoria de la variable
 
-*/
+
 // Punteros y Vectores
 
 int vector[20],*punt_vec;
@@ -208,31 +244,67 @@ printf("%d\n",vector[4]);
 
 //Función que DEVUELVE un PUNTERO
 
-int *funcion();
+//int *funcion();
+
+//int *puntero1;
+//*puntero1=funcion_devuelvePuntero_entero();
+//free(puntero1);
 
 //PUNTERO a una función
 
-void (*puntero_a_funcion)();
+//void (*puntero_a_funcion)();
 
 //void funcion{
 //    printf("Hola Mundo\n");
 //}
 
-puntero_a_funcion=funcion; //guarda la direccion de la "variable" funcion
+//puntero_a_funcion=funcion; //guarda la direccion de la "variable" funcion
 
-puntero_a_funcion(); //Llama a la funcion apuntada por puntero_a_funcion
-
-
+//puntero_a_funcion(); //Llama a la funcion apuntada por puntero_a_funcion
 
 
+// Punteros y Registros
+
+
+//variableRegistro.punto1=3;
+
+struct registroNuevo variableRegistro;
+struct registroNuevo *punteroReg;
+
+punteroReg=&variableRegistro; //Apuntamos a la variable registro
+
+
+punteroReg->punto1=9;
+printf("Imprimimos y nos aparece un: %d\n",punteroReg->punto1);
+
+*/
 
 
 
+//Pasaje de Parametros por VALOR
+
+//int resultado,num1=0,num2=0,num3=0;
+//resultado=funcion(num1,num2,num3);
+//printf("%d\n",resultado);
 
 
+//Pasaje de Parametros por REFERENCIA
+
+//int n1,n2,n3;
+//scanf("%d %d %d",&n1,&n2,&n3);   
+//funcionReferencia(&n1,&n2,&n3);
+//printf("%d %d %d\n",n1,n2,n3);      
+    
+  
+
+//printf("Introduzca tres números: \n");
+//scanf("%d %d %d",&x,&y,&z);
 
 
+char string[20]="Hola Mundo!";
+//printf("%c\n",string); //NO SE PUEDE 
 
+char caracter[20]="Hola Mundo!!!";
 
 
 }

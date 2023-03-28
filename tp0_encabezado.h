@@ -2,8 +2,8 @@
 
 #include <stdbool.h>
 
-#ifndef TP0_Repaso
-#define TP0_Repaso
+#ifndef tp0_encabezado.h
+#define tp0_encabezado.h
 
 // Ejercicio 1
 
