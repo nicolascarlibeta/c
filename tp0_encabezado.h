@@ -2,8 +2,8 @@
 
 #include <stdbool.h>
 
-#ifndef tp0_encabezado.h
-#define tp0_encabezado.h
+#ifndef tp0_encabezado
+#define tp0_encabezado
 
 // Ejercicio 1
 
@@ -27,6 +27,20 @@ struct Punto {
 };
 
 enum Referencia dondeEstaElPuntoBis(struct Punto centroC, int rc, struct Punto p);
+
+// Ejercicio 4
+
+#define TAMANO_STRING 50
+#define CANT_JUGADORES 11
+
+struct Jugador {
+    char nombre[TAMANO_STRING];
+    int edad, partidosJugados;
+};
+
+struct Jugador *jugadoresOrdenadosPorCantDePartidos(struct Jugador equipo[]);
+struct Jugador *jugadoresOrdenadosPorEdad(struct Jugador equipo[]);
+float promedioDePartidosJugados(struct Jugador equipo[], int edad);
 
 // Ejercicio 5
 

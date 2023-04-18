@@ -103,25 +103,32 @@ int CifraPos (int N, int P){
 
 int main(){
 
-//int fact=factorial(39);
-//printf("%d\n",fact);
+/*
+int fact=factorial(39);
 
-//int suma=sumaPrimNTerminos(9);
-//printf("%d\n",suma);
+printf("%d\n",fact);
 
-//int pot=potencia(2,0);
-//printf("%d\n",pot);
+int suma=sumaPrimNTerminos(9);
 
-//strcpy(string pegado,string copiado)
+printf("%d\n",suma);
 
+int pot=potencia(2,0);
 
-//char cadena[20]="Hola Mundo";
+printf("%d\n",pot);
 
-//printf("%c\n",cadena[19]);
+strcpy(string pegado,string copiado)
+
+char cadena[20]="Hola Mundo";
+
+printf("%c\n",cadena[19]);
 
 
 int resultado,numero=2409,posicion=3;
 resultado=CifraPos(numero,posicion);
 printf("%d\n",resultado);
+*/
+
+
+
 
 }

@@ -2,6 +2,18 @@
     "files.associations": {
         "*.py": "python",
         "typeinfo": "c",
-        "stdio.h": "c"
-    }
+        "stdio.h": "c",
+        "tp1_encabezado.h": "c",
+        "tipo_elemento.h": "c",
+        "listas.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "stdbool.h": "c",
+        "cmath": "c",
+        "exception": "c",
+        "type_traits": "c",
+        "limits": "c",
+        "*.tcc": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

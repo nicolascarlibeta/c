@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <string.h>
 #include "tp0_encabezado.h" //-------header (encabezado)
 
 
@@ -66,6 +67,55 @@ enum Referencia dondeEstaElPuntoBis(struct Punto centroC, int rc, struct Punto p
 
     return distancia;};
 
+
+// Ejercicio 4
+
+struct Jugador equipo[CANT_JUGADORES] = {
+    {"Messi", 34, 800},
+    {"Ronaldo", 37, 900},
+    {"Neymar Jr.", 29, 500},
+    {"Mbappe", 22, 200},
+    {"Lewandowski", 33, 700},
+    {"Salah", 29, 400},
+    {"De Bruyne", 30, 600},
+    {"van Dijk", 30, 400},
+    {"Ramos", 35, 650},
+    {"Neuer", 35, 800},
+    {"Davies", 20, 100}
+};
+
+struct Jugador *copia_del_equipo(struct Jugador equipo[CANT_JUGADORES]);
+
+struct Jugador *copia_del_equipo(struct Jugador equipo[CANT_JUGADORES]){
+    
+    int i;
+    struct Jugador *puntero=malloc(sizeof(struct Jugador)*CANT_JUGADORES); //Apuntamos a una direccion de memoria
+    for (i=0;i<CANT_JUGADORES;++i){
+        strcpy(puntero[i].nombre,equipo[i].nombre); //¿Por que no utilizamos el operador de indirección? ("*")
+        puntero[i].edad=equipo[i].edad;
+        puntero[i].partidosJugados=equipo[i].partidosJugados;
+    }   
+
+    return puntero;
+
+}
+
+float promedioDePartidosJugados(struct Jugador equipo[], int edad){
+
+    int i,suma=0;
+    float cant=0,promedio=0;
+    for (i=0;i<CANT_JUGADORES;++i){
+        if (equipo[i].edad==edad){
+            suma=suma+equipo[i].partidosJugados;
+            ++cant;
+        }
+    }
+
+    promedio=suma/cant;
+    return promedio;
+
+    
+}
 
 // Ejercicio 5
 
@@ -198,7 +248,28 @@ void corte_de_control(){
 
 
 
+int main(){
+/*
+int x=0;
+struct Jugador *puntero;
+puntero=copia_del_equipo(equipo);
 
+//Mostrar el vector de registro
+while (x<CANT_JUGADORES){
+printf("%s %d %d\n",puntero[x].nombre,puntero[x].edad,puntero[x].partidosJugados);
+++x;
+}
+
+//¡IMPORTANTE! SIEMPRE utilizar la función free() luego del malloc()
+free(puntero);
+*/
+
+float promedio=0;
+promedio=promedioDePartidosJugados(equipo,29);
+printf("%.3f",promedio);
+
+
+}
 
 
 

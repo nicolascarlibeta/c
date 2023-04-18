@@ -85,10 +85,17 @@ int funcionReferencia(int *x,int *y,int *z){
     *y=*y+2;
     *z=*z+2;
 
-
 } 
 
+struct regis{
+    int x,y;
+    char palabra[20];
+};
 
+struct regis vector[5];
+
+    
+    
 
 
 
@@ -301,10 +308,21 @@ printf("Imprimimos y nos aparece un: %d\n",punteroReg->punto1);
 //scanf("%d %d %d",&x,&y,&z);
 
 
-char string[20]="Hola Mundo!";
-//printf("%c\n",string); //NO SE PUEDE 
+//char string[11]="1.234";
+//char palabra[7]="1234";
+//printf("%c\n",palabra[100]); //NO SE PUEDE 
+//char *numero=malloc(cant);
+//numero=cadena;
+//numero=realloc(numero,sizeof(int)*(cant+1));
+//free(cadena);
 
-char caracter[20]="Hola Mundo!!!";
+
+//char caracter[20]="Hola Mundo!!!";
+
+
+vector[4].x=9;
+printf("%d\n",vector[4].x);
+
 
 
 }
