@@ -91,8 +91,14 @@ void l_agregar(Lista lista, TipoElemento elemento){
 
 }
 
-void l_borrar(Lista lista, int clave){
+TipoElemento l_recuperar(Lista lista, int pos){
+    
+    //return lista->valores[pos];
+    return lista->valores[pos-1]; //Utilizamos pos-1 porque accedemos a la LISTA de forma ORDINAL (Elemento 1)
+}
 
+void l_borrar(Lista lista, int clave){
+/*
     TipoElemento variable;
     int pos;
 
@@ -115,8 +121,33 @@ void l_borrar(Lista lista, int clave){
             lista->cantidad=lista->cantidad-1;
         }
     }
+*/
+
+//IMPORTANTE! Cuando se INTERCAMBIAN los ELEMENTOS de una LISTA, es importante NO INTERCAMBIAR las CLAVES
+//de las mismas
+
+    int pos=0;
+    while(pos<lista->cantidad){
+        //Borrado habitual
+        if (lista->valores[pos]->clave==clave){
+            for (int i=pos;i<lista->cantidad;i++){
+                lista->valores[i]=lista->valores[i+1];
+            }
+            lista->cantidad--; 
+        }   
+        else{
+            pos++;
+        }
+    }
+
 
 }
+
+bool l_es_vacia(Lista lista){
+    return lista->cantidad==0;
+}
+
+
 
 
 //OPERACIONES del ITERADOR (Originalmente en un archivo de encabezado o cabecera (.h) del TAD Lista)
@@ -144,38 +175,6 @@ bool hay_siguiente(Iterador iterador){
 //3. Una FUNCIÓN que RETORNE el elemento ACTUAL y AVANCE a la posición siguiente
 TipoElemento siguiente(Iterador iterador){
     
-    TipoElemento elementoActual=iterador->lista->valores[iterador->posicionActual];
-    iterador->posicionActual++;
-    return elementoActual;
-
-}
-
-int main(){
-
-
-TipoElemento te=te_crear(4),te2=te_crear(7); //Creamos una variable y le asignamos la clave "4" (valor de variable)
-//printf("%d",te->clave);
-Lista l=l_crear(); //Creamos una NUEVA LISTA
-int longitud;
-
-//l_agregar(l,te); //Agrego un elemento AL FINAL de la lista (En este caso, el único elemento)
-//l->valores[0]->clave=7; //ERROR! Se accede a un campo "clave" de un TipoElemento que no se encuentra en la lista 
-//printf("%d\n",l->valores[0]->clave);
-
-//Llenar la lista con (TipoElemento)s [Cargar el vector DINÁMICO]
-for (int i=0;i<7;++i){
-    l_agregar(l,te);
-}
-
-l_insertar(l,te2,3); //Inserto un TE de clave 7 en la posición 3
-
-longitud=l_longitud(l);
-//printf("%d\n",longitud); //La LONGITUD debe ser 1 a partir de ahora (Cantidad de elementos)
-l_mostrarLista(l);
-printf("\n");
-l_borrar(l,4);
-l_mostrarLista(l);
-free(te); //Siempre que usemos MEMORIA DINÁMICA utilizamos free() para liberar el espacio prev. asignado
-
+    return iterador->lista->valores[iterador->posicionActual++];
 
 }

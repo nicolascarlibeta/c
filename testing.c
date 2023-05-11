@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h> //Necesaria para utilizar la funcion "malloc(int)"
 #include <math.h>
+#include "tipo_elemento.h"
+#include "tipo_elemento.c" //
 #include "TP0_Repaso.h"
 
 int funcion1(int); //declaracion
@@ -318,11 +320,18 @@ printf("Imprimimos y nos aparece un: %d\n",punteroReg->punto1);
 
 
 //char caracter[20]="Hola Mundo!!!";
+/*
+int x[5]={1,2,3,4,5};
+*(x+4)=12;
+printf("%d",x[4]);
+*/
 
+//TipoElemento elemento=te_crear(3);
+TipoElemento *vector=calloc(10,sizeof(TipoElemento)); //Apunta a <posición de memoria (id)>
+TipoElemento elemento=te_crear(9); //NO SE PUEDE HACER "HARDCODING", SOLO podemos agregar ELEMENTOS (VACIOS O NO)
+vector[0]=elemento; //Guardamos el ELEMENTO por COMPLETO, NO SOLO SU CLAVE
 
-vector[4].x=9;
-printf("%d\n",vector[4].x);
-
+printf("%d",vector[0]->clave);
 
 
 }

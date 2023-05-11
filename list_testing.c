@@ -2,6 +2,8 @@
 
 #include "listas.h"
 #include <stdio.h>
+#include <ctype.h>
+#include <string.h>
 
 //Listas
 
@@ -75,3 +77,54 @@ void l_agregar(Lista lista, TipoElemento elemento); //AGREGAR un elemento
 
 */
 
+int main(){
+
+//TipoElemento te=te_crear(4),te2=te_crear(7); //Creamos una variable y le asignamos la clave "4" (valor de variable)
+//printf("%d",te->clave);
+Lista l=l_crear(); //Creamos una NUEVA LISTA
+int longitud;
+/*
+//l_agregar(l,te); //Agrego un elemento AL FINAL de la lista (En este caso, el único elemento)
+//l->valores[0]->clave=7; //ERROR! Se accede a un campo "clave" de un TipoElemento que no se encuentra en la lista 
+//printf("%d\n",l->valores[0]->clave);
+*/
+//Llenar la lista con (TipoElemento)s [Cargar el vector DINÁMICO]
+for (int i=0;i<7;++i){
+    TipoElemento te=te_crear(i);
+    l_agregar(l,te);
+}
+/*
+l_insertar(l,te2,3); //Inserto un TE de clave 7 en la posición 3
+
+longitud=l_longitud(l);
+//printf("%d\n",longitud); //La LONGITUD debe ser 1 a partir de ahora (Cantidad de elementos)
+l_mostrarLista(l);
+printf("\n");
+l_borrar(l,4);
+l_mostrarLista(l);
+free(te); //Siempre que usemos MEMORIA DINÁMICA utilizamos free() para liberar el espacio prev. asignado
+*/
+l_borrar(l,6);
+l_mostrarLista(l);
+
+
+char numero[20];
+char num[]="3,9";
+strcpy(numero,num);
+printf("%s",numero);
+int pos=0;
+bool entero=true;
+
+//strlen(): Longitud de una cadena con caracteres no nulos
+    
+
+for (int pos=0;pos<strlen(numero);pos++){
+    if (!isdigit(numero[pos])){
+        printf(" No es entero");
+        entero=false;
+        break;}
+}
+
+printf(" Es entero %d",entero);
+
+}

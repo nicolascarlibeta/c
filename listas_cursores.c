@@ -6,7 +6,7 @@
 //IMPLEMENTACIÓN DE LISTAS CON VECTORES DE REGISTROS (Conocido como CURSORES)
 
 //Consiste en un Vector de Registros donde se guardan elementos utilizados llamados NODOS, y
-//espacios sin utilizar conocidos como (espacios) LIBRES.
+//espacios SIN UTILIZAR conocidos como (espacios) NODOS LIBRES.
 
 static const int TAMANIO_MAXIMO=100;
 

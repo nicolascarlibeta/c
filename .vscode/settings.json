@@ -13,7 +13,13 @@
         "exception": "c",
         "type_traits": "c",
         "limits": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "math.h": "c",
+        "pilas_op_esp.h": "c",
+        "tp3_encabezado.h": "c",
+        "pilas.h": "c",
+        "cstdlib": "c",
+        "memory": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

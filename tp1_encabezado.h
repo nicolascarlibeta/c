@@ -19,7 +19,7 @@ bool esPalindromo(char *cadena, int inicio, int fin){
     bool resultado; //El resultado NO SE BORRA, porque NO ESTA DEFINIDO
  
     //Base
-    if (inicio==fin){
+    if (inicio>fin){
         resultado=true;
         }
     else if (cadena[inicio]!=cadena[fin]){
@@ -96,7 +96,7 @@ int agregarSeparadorMiles(char **numero,int fin,int *digitos){
         return agregarSeparadorMiles(numero,fin-1,digitos);
     }
 
-//TAD *puntero=calloc(bytes)
+//TIPODeDATO *puntero=calloc(bytes)
     
 
 }
@@ -124,29 +124,78 @@ int explosion(int n,int b,int *pos,int *lista){
         num=n2;
         lista[*pos]=n1;}
     
-    //pos+1--> ERROR! (no esta sumando ningun valor)
+    //pos=pos+1--> ERROR! (no esta sumando ningun valor)
     *pos=*pos+1; //El valor de pos se va acumulando dentro de la variable apuntada
     return explosion(num,b,pos,lista);
     }    
         
     }    
 
+
+//Ejercicio adicional (Detectar si un numero tiene todos sus digitos pares)
+
+bool todosPares(int n);
+
+bool todosPares(int n){
+
+    bool resultado;
+    //Base
+    if (n==0){
+        resultado=true;
+    }
+    else if ((n%10)%2!=0){
+        resultado=false;
+    }
+
+    //Recursivo
+    else{
+        return todosPares(n/10);
+    }
+    return resultado;
+
+}
+
 //Ejercicio adicional (Invertir una cadena de caracteres por recursión)
 
-char InvertirCadena(char cadena);
+bool InvertirCadena(char *cadena, int inicio, int fin);
+
+bool InvertirCadena(char *cadena, int inicio, int fin){
+
+    bool resultado;
+    char caracter;
+    //Base
+    if (inicio>fin){
+        resultado=true;
+    }
+    
+    //Recursivo
+    else{
+        caracter=cadena[fin];
+        cadena[fin]=cadena[inicio];
+        cadena[inicio]=caracter;
+        return InvertirCadena(cadena,inicio+1,fin-1);
+    }
+    return resultado;
+
+}
+
 
 //Ejercicio adicional 2 (Insertar un caracter en una cadena de string)
 
-void InsertarCaracter(char* s1, char c, int posi);
+void InsertarCaracter(char* cadena, char c, int pos, int cantidad);
 
-void InsertarCaracter(char* s1, char c, int posi){
+void InsertarCaracter(char* cadena, char c, int pos, int cantidad){
 
     //Base
-    if (long==posi){
-        return true;
+    if (pos==cantidad){
+        cadena[pos]=c;
+    }
+    else if (pos>cantidad){
+        cadena[cantidad]=c;
     }
     else{
-        
+        cadena[cantidad]=cadena[cantidad-1];
+        return InsertarCaracter(cadena,c,pos,cantidad-1);
     }
 
 
