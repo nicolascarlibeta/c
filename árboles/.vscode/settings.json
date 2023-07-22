@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "arbol-binario.h": "c",
+        "tipo_elemento.h": "c",
+        "listas.h": "c"
+    }
+}

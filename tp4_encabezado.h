@@ -1,15 +1,177 @@
 
 
-#include "tipo_elemento.c" //
-#include "listas.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
+#include "colas.h"
+#include "colas_vectores.c"
+#include "pilas.h"
+#include "pilas_utilidades.h"
+#include "listas.h"
 
-//Definimos la CONSTANTE de MÁXIMA
-//#define TAMANIO_MAXIMO=100;
-static const int TAMANIO_MAXIMO=100; //
+//Ejercicio 2.
+
+bool estaCola(Cola cola, TipoElemento x);
+Cola c_insertar(Cola cola, TipoElemento elemento, int posicion);
+Cola c_borrar(Cola cola, TipoElemento elemento);
+Cola c_copiar(Cola cola);
+Cola c_invertir(Cola cola);
+
+//Ejercicio 3.
+
+void l_desencolar(Cola cola, Lista lista);
+bool c_sonIguales(Cola c1, Cola c2);
+
+//Ejercicio 4.
+
+Cola sinRepetidos(Cola cola);
+
+//Ejercicio 6.
+
+Lista valoresComunes(Pila pila, Cola cola);
+
+
+
+
+//PILAS IMPLEMENTADAS CON PUNTEROS
+
+struct Nodo{
+    TipoElemento datos;
+    struct Nodo *siguiente;
+};
+
+struct PilaRep{
+    struct Nodo *tope; //APUNTA al elemento del TOPE
+};
+
+//CREAR una NUEVA PILA
+Pila p_crear(){
+
+    Pila nuevaPila=(Pila)malloc(sizeof(struct PilaRep));
+    nuevaPila->tope=NULL;
+
+    return nuevaPila;
+
+}
+
+bool p_es_llena(Pila pila){
+
+    int pos=0;
+    Pila paux=p_crear();
+    TipoElemento elemento;
+    while (!p_es_vacia(pila)){
+        //Recorremos la pila
+        elemento=p_desapilar(pila);
+        p_apilar(paux,elemento);
+        pos++;
+    }
+    p_intercambiar(pila,paux);
+
+    return pos==TAMANIO_MAXIMO;
+
+}
+
+bool p_es_vacia(Pila pila){
+
+    return pila->tope==NULL;
+
+}
+
+//RETORNAR el ELEMENTO del TOPE
+TipoElemento p_tope(Pila pila){ //Verificamos que la pila NO ESTE VACIA
+
+    if (p_es_vacia(pila)){
+        return NULL;
+    }
+    else{
+        return pila->tope->datos;}
+
+}
+
+//APILAR un ELEMENTO
+void p_apilar(Pila pila, TipoElemento elemento){
+
+    if (!p_es_llena(pila)){
+        //Se crea un Nuevo Elemento (Nuevo NODO)
+        struct Nodo *nuevoNodo=malloc(sizeof(struct Nodo));
+        nuevoNodo->datos=elemento; //Se guardan los DATOS del TipoElemento en el NODO
+        nuevoNodo->siguiente=NULL;
+
+        //Apilar al TOPE
+        if (!p_es_vacia(pila)){ //Si la PILA NO ESTA VACIA, el nuevo NODO se conecta con los demás
+            nuevoNodo->siguiente=pila->tope;
+        }
+        pila->tope=nuevoNodo;   
+    }
+
+}
+
+//DES-APILAR un ELEMENTO
+TipoElemento p_desapilar(Pila pila){
+
+    if (p_es_vacia(pila)){
+        return NULL;}
+
+    else{ //Se desapila DESDE el TOPE
+      struct Nodo *topeActual=pila->tope; //Apuntador al NODO del TOPE
+      TipoElemento elemento=topeActual->datos; //Traspaso los datos del NODO del TOPE (Datos de TipoElemento)
+      pila->tope=topeActual->siguiente; //Apunta al siguiente NODO del TOPE
+      free(topeActual); //Liberamos el espacio de memoria del puntero *topeActual
+      return elemento; 
+}
+
+}
+
+//MOSTRAR una PILA POR PANTALLA
+void p_mostrar(Pila pila){   
+
+    if (p_es_vacia(pila)){
+        return;}
+
+    else{ //Primero la desapilo
+        Pila paux=p_crear();
+        TipoElemento elemento;
+        while (!p_es_vacia(pila)){
+            elemento=p_desapilar(pila);
+            printf("%d\n",elemento->clave);
+            p_apilar(paux,elemento);
+        }
+        p_intercambiar(pila,paux);
+        printf("\n");
+
+}
+
+}
+
+//FUNCIÓN que INTERCAMBIA los elementos de una PILA (Pila AUXILIAR) a otra (NO PERTENECE AL TAD PILA)
+
+void p_intercambiar(Pila pila, Pila pilaAux){
+    
+    if (p_es_vacia(pilaAux)){
+        return; //Si una funcion retorna VOID, se debera retornar vacio (return)
+    }
+    else{
+        while(!p_es_vacia(pilaAux)){
+            TipoElemento elemento=p_desapilar(pilaAux);
+            p_apilar(pila,elemento);
+        }
+    }
+
+}
+
+int p_longitud(Pila pila){ 
+    
+    Pila paux=p_crear();
+    TipoElemento elemento;
+    int cantidad=0;
+    while(!p_es_vacia(pila)){
+        elemento=p_desapilar(pila);
+        p_apilar(paux,elemento);
+        cantidad++;
+    }
+
+    p_intercambiar(pila,paux);
+    return cantidad;
+
+}
 
 struct ListaRep{
     TipoElemento *valores; //Vector de (TipoElementos)'s (puntero)
@@ -54,7 +216,6 @@ void l_mostrarLista(Lista lista){
         //printf("%d",lista->valores[i]) ERROR! No estoy accediendo a los elementos del vector
         printf("%d ",lista->valores[i]->clave); 
     }
-    printf("\n");
 
 }
 
@@ -149,35 +310,7 @@ bool l_es_vacia(Lista lista){
 }
 
 
-bool l_es_llena(Lista lista){
-    return lista->cantidad==TAMANIO_MAXIMO;
-}
 
-
-TipoElemento l_buscar(Lista lista, int clave) {
-    int pos = 0;
-    while (pos < lista->cantidad) {
-        if (lista->valores[pos]->clave == clave) {
-            return lista->valores[pos];
-        }
-        pos++;
-    }
-    return NULL;
-}
-
-
-void l_eliminar(Lista lista, int pos) {
-    if (pos > l_longitud(lista)) {
-        return;
-    }
-    // Ahora intento eliminar
-    if (1 <= pos && pos <= l_longitud(lista)) {
-        for (int i = pos - 1; i < lista->cantidad; i++) {
-            lista->valores[i] = lista->valores[i + 1];
-        }
-        lista->cantidad--;
-    }
-}
 
 //OPERACIONES del ITERADOR (Originalmente en un archivo de encabezado o cabecera (.h) del TAD Lista)
 //Recordemos que se define una estructura "Iterador" (Recorrido de la lista)

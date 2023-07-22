@@ -19,7 +19,19 @@
         "tp3_encabezado.h": "c",
         "pilas.h": "c",
         "cstdlib": "c",
-        "memory": "c"
+        "memory": "c",
+        "pilas_utilidades.h": "c",
+        "colas.h": "c",
+        "colas_utilidades.h": "c",
+        "tp4_encabezado.h": "c",
+        "nodo.h": "c",
+        "arbol-binario-busqueda.h": "c",
+        "arbol-binario.h": "c",
+        "tabla_hash.h": "c",
+        "conjuntos.h": "c",
+        "tp6_encabezado.h": "c",
+        "proyecto1.h": "c",
+        "random": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
