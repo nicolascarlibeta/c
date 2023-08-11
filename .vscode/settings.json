@@ -31,7 +31,8 @@
         "conjuntos.h": "c",
         "tp6_encabezado.h": "c",
         "proyecto1.h": "c",
-        "random": "c"
+        "random": "c",
+        "tipo_elemento_c.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

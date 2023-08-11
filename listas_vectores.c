@@ -1,6 +1,6 @@
 
 
-#include "tipo_elemento.c" //
+#include "tipo_elemento_c.c" //
 #include "listas.h"
 #include <stdio.h>
 #include <stdlib.h>

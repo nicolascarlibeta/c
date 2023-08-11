@@ -77,32 +77,23 @@ void abb_insertar(ArbolBinarioBusqueda a, TipoElemento te){
 
     if(!abb_es_lleno(a)){
 
+        //Se presta un nodo libre
+        int p=a->libre;
+        a->libre=a->arbol[p].siguiente;
+
+        //Se carga el ex-nodo libre
+        //a->raiz=p; ACLARACIÓN: Linea del código ANTERIOR
+        a->arbol[p].datos=te; //IMPORTANTE!!!
+        a->arbol[p].siguiente=NULO;
+        a->arbol[p].hi=NULO;
+        a->arbol[p].hd=NULO;
+
         //Si es el 1ER ELEMENTO
         if(abb_es_vacio(a)){
-
-            //Se presta un nodo libre
-            int p=a->libre;
-            a->libre=a->arbol[p].siguiente;
-
-            //Se carga el ex-nodo libre
             a->raiz=p;
-            a->arbol[p].datos=te; //IMPORTANTE!!!
-            a->arbol[p].siguiente=NULO;
-            a->arbol[p].hi=NULO;
-            a->arbol[p].hd=NULO;
-
         }
 
         else{
-            //Se presta un nodo libre
-            int p=a->libre;
-            a->libre=a->arbol[p].siguiente;
-
-            a->arbol[p].datos=te;
-            a->arbol[p].siguiente=NULO;
-            a->arbol[p].hi=NULO;
-            a->arbol[p].hd=NULO;
-
             int q=a->raiz, actual=0;
             while(q!=NULO){
                 
@@ -136,7 +127,10 @@ TipoElemento abb_buscar(ArbolBinarioBusqueda a, int clave){
 
         int q=a->raiz, pos=0;
         bool esta=false;
-        while(!esta){
+        //while(!esta){ ERROR! Esta condición logra que si el elemento NO SE ENCUENTRA, 
+        //le termine PREGUNTANDO a un valor que es NULO. Es decir, terminaria en un error
+        //semantico y en un BUCLE INFINITO. Lo correcto es detenerse si q es NULO
+        while(q!=NULO && !esta){ 
             
             if(a->arbol[q].datos->clave==clave){
                 pos=q;
@@ -164,7 +158,7 @@ TipoElemento abb_buscar(ArbolBinarioBusqueda a, int clave){
     return te;
 
 }
-
+/*
 int menorSubarbolDerecho(ArbolBinarioBusqueda a, int pa, int *p){
 
     int q=pa, menor=0;
@@ -181,7 +175,7 @@ int menorSubarbolDerecho(ArbolBinarioBusqueda a, int pa, int *p){
     return menor;
 
 }
-/*
+
 void abb_eliminarSub(ArbolBinarioBusqueda a, int pa, int h, int i){
 
        
@@ -302,7 +296,7 @@ void abb_eliminar(ArbolBinarioBusqueda a, int claveABorrar){
     }
 
 }
-*/
+
 void abb_eliminarSub2(ArbolBinarioBusqueda a, int pa, int h, int i){
 
        
@@ -415,6 +409,67 @@ void abb_eliminar(ArbolBinarioBusqueda a, int claveABorrar){
     }
 
 }
+*/
+
+void abb_eliminar(ArbolBinarioBusqueda A, int clave){
+    if (A->raiz==NULO){
+        return;
+    }
+    else{
+        int p = A->raiz;
+        bool encontrado = false;
+        while (p!=NULO && encontrado == false){
+            if (clave > A->arbol[p].datos->clave){
+                p = A->arbol[p].hd;
+            }
+            else if (clave < A->arbol[p].datos->clave){
+                p = A->arbol[p].hi;
+            }
+            else{
+                encontrado = true;
+            }
+        }
+        if (encontrado){
+            int q;
+            int padre = A->raiz;
+            if (A->arbol[padre].hi != NULO || A->arbol[padre].hd != NULO){
+                if (A->arbol[padre].hd != NULO){
+                    q = A->arbol[padre].hd;
+                    while(A->arbol[q].hi != NULO){
+                        padre = q;
+                        q = A->arbol[q].hi;
+                    }
+                    A->arbol[p].datos = A->arbol[q].datos;
+                    A->arbol[padre].hi = A->arbol[q].hd;
+                }
+                else{
+                    q = A->arbol[padre].hi;
+                    while (A->arbol[q].hd != NULO){
+                        padre = q;
+                        q = A->arbol[q].hd;
+                    }
+                    A->arbol[p].datos = A->arbol[q].datos;
+                    A->arbol[padre].hd = A->arbol[q].hi;
+                }
+                A->arbol[q].hi = NULO;
+                A->arbol[q].hd = NULO;
+                A->arbol[q].siguiente = A->libre;
+                A->libre = q;
+            }
+            else{
+                A->arbol[padre].siguiente = A->libre;
+                A->libre = padre;
+                A->raiz = NULO;
+            }
+        }
+    }
+}
+
+
+
+
+
+
 
 //Función adicional del TAD: Calcular la altura de la rama mas larga de un subarbol, según un nodo
 
@@ -525,7 +580,9 @@ x=te_crear(15);
 abb_insertar(arbolbb,x);
 pre_orden(arbolbb,arbolbb->raiz);
 printf("\n");
-printf("%d",abb_AlturaDeNodo(arbolbb,10));
+abb_eliminar(arbolbb,9);
+pre_orden(arbolbb,arbolbb->raiz);
+printf("\n");
 
 
 }

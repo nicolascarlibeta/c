@@ -416,6 +416,39 @@ Lista lista_de_hermanos(ArbolBinario A, int clave){
 
 }
 
+//Ejercicio 7.
+
+void arbolesEquivalentesSub(NodoArbol nodo, NodoArbol nodo2, bool *e){
+
+
+    if(nodo==NULL || nodo2==NULL){
+        if((nodo==NULL && nodo2!=NULL) || (nodo!=NULL && nodo2==NULL)){
+            *e=false;
+        }
+        else{}
+    }
+
+    else if(*e){
+
+        if(n_recuperar(nodo)->clave!=n_recuperar(nodo2)->clave){
+            *e=false;
+        }
+
+        arbolesEquivalentesSub(n_hijoizquierdo(nodo),n_hijoizquierdo(nodo2),e);
+        arbolesEquivalentesSub(n_hijoderecho(nodo),n_hijoderecho(nodo2),e);
+    }
+
+
+}
+
+bool arbolesEquivalentes(ArbolBinario A, ArbolBinario B){
+
+    bool e=true;
+    arbolesEquivalentesSub(a_raiz(A),a_raiz(B),&e);
+    return e;
+
+}
+
 //Ejercicio 8.
 
 //a.
@@ -573,26 +606,128 @@ bool esArbolBB(ArbolBinario A){
 }
 
 
+//ARBOLES SIMILARES
+
+void arbolesSimilaresSub(NodoArbol nodo, NodoArbol nodo2, bool *simil){
+
+
+    if(nodo==NULL || nodo2==NULL){
+        if((nodo==NULL && nodo2!=NULL) || (nodo!=NULL && nodo2==NULL)){
+            *simil=false;
+        }
+        else{}
+    }
+
+    else if(*simil){
+        arbolesSimilaresSub(n_hijoizquierdo(nodo),n_hijoizquierdo(nodo2),simil);
+        arbolesSimilaresSub(n_hijoderecho(nodo),n_hijoderecho(nodo2),simil);
+    }
+
+
+}
+
+bool arbolesSimilares(ArbolBinario A, ArbolBinario B){
+
+    bool simil=true;
+    arbolesSimilaresSub(a_raiz(A),a_raiz(B),&simil);
+    return simil;
+
+}
+
+
+//ARBOLES N-ARIOS
+
+void nivelSub3(NodoArbol nodo, Lista lista){
+
+    if(nodo==NULL){}
+
+    else{
+        l_agregar(lista,n_recuperar(nodo));
+        nivelSub3(n_hijoderecho(nodo),lista);
+    }
+
+}
+
+
+void nivelSub2(NodoArbol nodo, Lista lista){
+
+    if(nodo==NULL){}
+
+    else{
+        nivelSub3(n_hijoizquierdo(nodo),lista);
+        nivelSub2(n_hijoderecho(nodo),lista);
+    }
+
+}
+
+
+void nivelSub(NodoArbol nodo, int nivel, int cantidad, Lista lista, bool *listo){
+
+
+    if(nodo==NULL){}
+        
+    else{
+
+        if(cantidad==nivel-1){
+            nivelSub2(nodo,lista);
+            *listo=true;
+        }
+        
+        if(!*listo){
+            nivelSub(n_hijoizquierdo(nodo),nivel,cantidad+1,lista,listo);
+            nivelSub(n_hijoderecho(nodo),nivel,cantidad,lista,listo);
+        }
+        
+    }
+
+
+}
+
+
+Lista nivel(ArbolBinario A, int nivel){
+
+    Lista l=l_crear();
+    bool listo=false;
+    //IMPORTANTE! Debemos VALIDAR los DATOS DE ENTRADA.
+    if(nivel<0){}
+
+    else if(nivel==0){
+        l_agregar(l,n_recuperar(a_raiz(A)));
+    }
+    else{
+        nivelSub(a_raiz(A),nivel,0,l,&listo);
+    }
+    return l;
+
+}
+
+
+
+
 int main(){
 
-ArbolBinario a;
+ArbolBinario a, b;
 TipoElemento x;
 NodoArbol N;
 
 printf("Creando el Arbol Binario Vacio (Tamanio = 10) !\n");
-a=a_crear();
 
 //Creo el arbol
 a = a_crear();
+//b = a_crear();
 cargar_arbol_binario(a); //Lo cargo
+
 
 //MOSTRAR el ARBOL en PRE-ORDEN
 printf("-----------------------------------------------------\n");
 printf("Pre-Orden Desde la raiz\n");
 pre_orden(a_raiz(a));
 printf("\n");
-printf("Es Arbol BB: %d",esArbolBB(a));
-
+//printf("Es Arbol BB: %d",esArbolBB(a));
+//printf("Son similares: %d",arbolesSimilares(a,b));
+//printf("\n");
+//printf("Son equivalentes: %d",arbolesEquivalentes(a,b));
+l_mostrarLista(nivel(a,2));
 
 
 

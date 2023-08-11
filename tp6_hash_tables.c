@@ -129,7 +129,7 @@ int main(){
     ABM_Alumnos();
     guardarLegajoABM(th);
     th_mostrar_solo_ocupados(th);
-    */
+    
     TablaHash th=th_crear(2000,&hash_por_modulo);
     char fecha[40];
     printf("Hola, por favor ingrese una fecha valida: ");
@@ -137,5 +137,21 @@ int main(){
     //ABM_Vacunados();
     VacunadosPorFecha(th,fecha);
     th_mostrar_solo_ocupados(th);
+    */
+    TablaHash th=th_crear(10,&hash_por_modulo);
+    TipoElemento X=te_crear(40);
+    th_insertar(th,X);
+    X=te_crear(15);
+    th_insertar(th,X);
+    X=te_crear(10);
+    th_insertar(th,X);
+    X=te_crear(20);
+    th_insertar(th,X);
+    X=te_crear(35);
+    th_insertar(th,X);
+    th_eliminar(th,15);
+    th_eliminar(th,40);
+    th_mostrar(th);
+
 
 }
