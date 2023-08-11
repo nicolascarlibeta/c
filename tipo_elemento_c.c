@@ -2,7 +2,7 @@
 
 #include "tipo_elemento_c.h"
 #include <stdlib.h>
-
+#include <string.h>
 
 //Definimos las funciones del TipoElemento (Asignar CLAVE y asignar VALOR)
 
@@ -11,7 +11,6 @@ TipoElemento te_crear(int clave){
 
     TipoElemento te=(TipoElemento)malloc(sizeof(struct TipoElementoRep));
     te->clave=clave;
-    te->valor=NULL;
     return te;
 
 }
